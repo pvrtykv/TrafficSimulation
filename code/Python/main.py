@@ -1,4 +1,5 @@
 import osmium as osm
+import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -16,6 +17,15 @@ if __name__ == '__main__':
 
     data_colnames = ['id',  'lon', 'lat']
     df = pd.DataFrame(c.osm_nodes, columns=data_colnames)
-    print(df)
-    df.plot(kind='scatter', x='lon', y='lat', color='blue')
+    #print(df)
+    #df.plot(kind='scatter', x='lon', y='lat', color='blue')
+    #plt.show()
+    BBox = (df.lon.min(), df.lon.max(), df.lat.min(), df.lat.max())
+    #print(BBox)
+    map_img = plt.imread('map.png')
+    fig, ax = plt.subplots(figsize = (50,30))
+    ax.scatter(df.lon, df.lat)
+    ax.set_xlim(BBox[0], BBox[1])
+    ax.set_ylim(BBox[2], BBox[3])
+    ax.imshow(map_img, zorder=0, extent=BBox, aspect='equal')
     plt.show()
