@@ -360,6 +360,7 @@ if __name__ == '__main__':
         ax1.legend(labels, loc=3, fontsize="x-small")
         plt.show()
 
+        print("Ilość pojazdów na odcinkach obwodnicy:\n")
         print("Modlnica - Modlniczka:", modlnica, "\nModlniczka - Balice I:", modlniczka,
               "\nBalice I - Balice II :", balice1, "\nBalice II - Bielany:", balice2,
               "\nBielany - Tyniec:", bielany, "\nTyniec - Skawina:", tyniec,
