@@ -564,17 +564,6 @@ if __name__ == '__main__':
         odc16.write(zielonki, False, align="left", font=("Arial Black", 20, "normal", "bold"))
         odc16.hideturtle()
 
-
-           # carcounter = car_counter(0, 2)
-            #print(carcounter);
-
-
-        #Tutaj po każdym kroku pętli ma być wykonywane rysowanie.
-            #Należy przeiterować tablice firstlane, secondlane i thirdlane
-            #Jeśli xxxxxlane[i].cond==1(znaczy to że komórka jest zapełniona), należy ją nanieść na wizualizację jako punkt.
-            #Program nie znajduje błędów, ale jest możliwe, że nie działa poprawnie przez brak możliwości przetestowania.
-            #Jaki węzeł ma jaki numer w tablicy można znaleźć w pliku Danev2.
-
         #print("Next step")
         timer.plus();
         time.sleep(refresh)
