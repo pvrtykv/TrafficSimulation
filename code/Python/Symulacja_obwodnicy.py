@@ -8,13 +8,8 @@ class Cell:
     def __init__(self):
         self.cond=0
         self.exists=0
-        self.id=0
-class Car:
-    def __init__(self):
         self.v=0
         self.category="car"
-        self.id=0
-        self.exists=1
 
 class Counter:
     def __init__(self):
@@ -24,12 +19,10 @@ class Counter:
     def get(self):
         return self.value
 
-carid=Counter()
 timer=Counter()
 firstlane=[]
 secondlane=[]
 thirdlane=[]
-cars=[]
 def creation():
     for i in range (7587):
         firstlane.append(Cell())
@@ -46,21 +39,13 @@ def random_auto(randomauto):
             if i%7==0 and i%35!=0:
                 #firstlane.append(Cell())
                 firstlane[i].cond=1 #zajmowanie komórki
-                cars.append(Car())
-                cars[len(cars)-1].category="car"
-                cars[len(cars)-1].v=4 #4 k/s to ok 100 km/h
-                cars[len(cars)-1].id=carid.get()
-                carid.plus()
-                firstlane[i].id=cars[len(cars)-1].id
+                firstlane[i].category="car"
+                firstlane[i].v=4 #4 k/s to ok 100 km/h
             if i%7==0 and i%35==0:
                 #firstlane.append(Cell())
                 firstlane[i].cond=1 #zajmowanie komórki
-                cars.append(Car())
-                cars[len(cars)-1].category="truck"
-                cars[len(cars)-1].v=3 #4 k/s to ok 80 km/h
-                cars[len(cars)-1].id=carid.get()
-                carid.plus()
-                firstlane[i].id=cars[len(cars)-1].id
+                firstlane[i].category="truck"
+                firstlane[i].v=3 #4 k/s to ok 100 km/h
 
 def car_counter(start, end):
     counter = 0
@@ -80,9 +65,9 @@ if __name__ == '__main__':
     random_auto(randomauto)
 
     while (1):
-        for i in range(7587):
+        for i in range(7586,0,-1):
+            """
             #kontrola zmiany pasa
-
             if i>3 and i<3267: #odcinek bez trzeciego pasa
                 if firstlane[i].cond==1:
                     if firstlane[i+1].cond==1 or firstlane[i+2].cond==1 or firstlane[i+3].cond==1 or firstlane[i+4].cond==1:
@@ -143,67 +128,64 @@ if __name__ == '__main__':
                                 thirdlane[i].id=0 #przenoszenie obiektu na drugi pas i opróżnianie zajmowanej dotychczas komórki
                                 if cars[secondlane[i+1].id].v>0:
                                     cars[secondlane[i+1].id].v-=1
-                
+            """   
             #kontrola drogi przed pojazdem i dostosowanie prędkości
             if firstlane[i].cond==1 and i<7583: #sprawdzanie czy konieczne jest hamowanie lub można przyspieszyć
                 if firstlane[i+1].cond==1 or firstlane[i+2].cond==1 or firstlane[i+3].cond==1 or firstlane[i+4].cond==1:
-                    if cars[firstlane[i].id].v>0:
-                        cars[firstlane[i].id].v-=1
+                    if firstlane[i].v>0:
+                        firstlane[i].v-=1
                 else:
-                    if cars[firstlane[i].id].category=="car" and cars[firstlane[i].id].v<5:
-                        cars[firstlane[i].id].v+=1
-                    if cars[firstlane[i].id].category=="truck" and cars[firstlane[i].id].v<4:
-                        cars[firstlane[i].id].v+=1
-            if secondlane[i].cond==1 and i<7583:
+                    if firstlane[i].category=="car" and firstlane[i].v<5:
+                        firstlane[i].v+=1
+                    if firstlane[i].category=="truck" and firstlane[i].v<4:
+                        firstlane[i].v+=1
+            if secondlane[i].cond==1 and i<7583: #sprawdzanie czy konieczne jest hamowanie lub można przyspieszyć
                 if secondlane[i+1].cond==1 or secondlane[i+2].cond==1 or secondlane[i+3].cond==1 or secondlane[i+4].cond==1:
-                    if cars[secondlane[i].id].v>0:
-                        cars[secondlane[i].id].v-=1
+                    if secondlane[i].v>0:
+                        secondlane[i].v-=1
                 else:
-                    if cars[secondlane[i].id].category=="car" and cars[secondlane[i].id].v<5:
-                        cars[secondlane[i].id].v+=1
-                    if cars[secondlane[i].id].category=="truck" and cars[secondlane[i].id].v<4:
-                        cars[secondlane[i].id].v+=1
-            if thirdlane[i].cond==1 and i<7583:
+                    if secondlane[i].category=="car" and secondlane[i].v<5:
+                        secondlane[i].v+=1
+                    if secondlane[i].category=="truck" and secondlane[i].v<4:
+                        secondlane[i].v+=1
+            if thirdlane[i].cond==1 and i<7583: #sprawdzanie czy konieczne jest hamowanie lub można przyspieszyć
                 if thirdlane[i+1].cond==1 or thirdlane[i+2].cond==1 or thirdlane[i+3].cond==1 or thirdlane[i+4].cond==1:
-                    if cars[thirdlane[i].id].v>0:
-                        cars[thirdlane[i].id].v-=1
+                    if thirdlane[i].v>0:
+                        thirdlane[i].v-=1
                 else:
-                    if cars[thirdlane[i].id].category=="car" and cars[thirdlane[i].id].v<5:
-                        cars[thirdlane[i].id].v+=1
-                    if cars[thirdlane[i].id].category=="truck" and cars[thirdlane[i].id].v<4:
-                        cars[thirdlane[i].id].v+=1
-            """
-            #usuwanie samochodów znajdujących się poza drogą
-            if i>7582:
-                if firstlane[i].cond==1:
-                    cars[firstlane[i].id].exists=0
-                    firstlane[i].cond=0
-                    firstlane[i].id=0
-                if secondlane[i].cond==1:
-                    cars[secondlane[i].id].exists=0
-                    secondlane[i].cond=0
-                if thirdlane[i].cond==1:               
-                    secondlane[i].id=0
-                    cars[thirdlane[i].id].exists=0
-                    thirdlane[i].cond=0
-                    thirdlane[i].id=0
+                    if thirdlane[i].category=="car" and thirdlane[i].v<5:
+                        thirdlane[i].v+=1
+                    if thirdlane[i].category=="truck" and thirdlane[i].v<4:
+                        thirdlane[i].v+=1
             
+            
+            #usuwanie samochodów znajdujących się poza drogą
+            if i>7581:
+                if firstlane[i].cond==1:
+                    firstlane[i].cond=0
+                if secondlane[i].cond==1:
+                    secondlane[i].cond=0
+                if thirdlane[i].cond==1:       
+                    thirdlane[i].cond=0
+
             #przemieszczenie pojazdu w oparciu o obliczoną wcześniej prędkość
             if firstlane[i].cond==1:
-                firstlane[i+cars[firstlane[i].id].v].cond=1
+                tmp=firstlane[i].v
+                print("ABC")
+                firstlane[i+tmp].cond=1
+                firstlane[i+tmp].category=firstlane[i].category
+                firstlane[i+tmp].v=firstlane[i].v
                 firstlane[i].cond=0
-                firstlane[i+cars[firstlane[i].id].v].id=firstlane[i].id
-                firstlane[i].id=0
             if secondlane[i].cond==1:
-                secondlane[i+cars[secondlane[i].id].v].cond=1
-                secondlane[i].cond=0
-                secondlane[i+cars[secondlane[i].id].v].id=secondlane[i].id
-                secondlane[i].id=0
+                secondlane[i+secondlane[i].v].cond=1
+                secondlane[i+secondlane[i].v].category=secondlane[i].category
+                secondlane[i+secondlane[i].v].v=secondlane[i].v
+                scondlane[i].cond=0
             if thirdlane[i].cond==1:
-                thirdlane[i+cars[thirdlane[i].id].v].cond=1
+                thirdlane[i+thirdlane[i].v].cond=1
+                thirdlane[i+thirdlane[i].v].category=thirdlane[i].category
+                thirdlane[i+thirdlane[i].v].v=thirdlane[i].v
                 thirdlane[i].cond=0
-                thirdlane[i+cars[thirdlane[i].id].v].id=thirdlane[i].id
-                thirdlane[i].id=0
             """
             #wjazd pojazdów na węzłach
             #na budowanych odcinkach nie ma tej funkcjonalności ze względu na brak wiedzy co do natężenia ruchu jakie tam ma być
@@ -323,8 +305,18 @@ if __name__ == '__main__':
                 if firstlane[4880].cond==1:
                     cars[firstlane[4880].id].exists=0
                     firstlane[4880].id=0
+            """
 
+        ####################################################################################################
+        ####################################################################################################  
+        ####################################################################################################
+        ####################################################################################################
+        ####################################################################################################
+        ####################################################################################################
+                  
         carcounter1 = car_counter(0,7586)
+        print(carcounter1)
+        """
         modlnica = car_counter(0,334)
         modlniczka = car_counter(334, 548)
         balice1 = car_counter(548, 881)
@@ -370,6 +362,7 @@ if __name__ == '__main__':
             "\nMistrzejowice - Batowice:", mistrzejowice, "\nBatowice - Węgrzce:", batowice,
              "\nWęgrzce - Zielonki:", wegrzce,  "\nZielonki - Modlnica:", zielonki,
               "\nSuma:", car_counter(0,7588))
+        """
 
 
 
